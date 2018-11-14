@@ -358,14 +358,20 @@ public class Offline extends JPanel {
 			CheckAlgorithm(x, y, turn, 1);
 			SetMapComponent(y, x, turn);
 
-			blackcheck = whitecheck = 0;
+			blackcount = whitecount = blackcheck = whitecheck = 0;
 			for (i = 0; i < maxXY; i++) {
 				for (j = 0; j < maxXY; j++) {
-					blackcheck += CheckAlgorithm(i, j, Main.BLACK, 0);
-					whitecheck += CheckAlgorithm(i, j, Main.WHITE, 0);
+					blackcheck += CheckAlgorithm(i, j, Main.BLACK, 0);// 흑돌이 놓을수 있는 수
+					whitecheck += CheckAlgorithm(i, j, Main.WHITE, 0);// 백돌이 넣을수 있는 수
 
+					if (map[i][j] == 1 || map[i][j] == 4) {
+						blackcount++;
+					} else if (map[i][j] == -1 || map[i][j] == 2) {
+						whitecount++;
+					}
 				}
 			}
+			System.out.println(blackcheck+" "+whitecheck+" "+blackcount+" "+whitecount);
 
 			if ((blackcheck == 0 && whitecheck == 0) || (blackcount + whitecount) >= maxXY * maxXY) {
 				int winner = 0;
@@ -374,11 +380,11 @@ public class Offline extends JPanel {
 				} else if (blackcount < whitecount) {
 					winner = Main.WHITE;
 				} else if (blackcount == whitecount) {
-					winner = 3;
+					winner = Main.DRAW;
 				}
 
 				win(winner);
-				Winner = winner;
+
 
 			} else {
 
@@ -420,6 +426,7 @@ public class Offline extends JPanel {
 
 	public void win(int winner) {
 
+		Winner = winner;
 		if (winner == Main.WHITE) {
 			WinDialog.setTitle("흰돌의 승리!");
 			WinDialog.add(new JLabel(new ImageIcon(
@@ -471,13 +478,6 @@ public class Offline extends JPanel {
 						int clky = arg0.getY() / maxSize;
 						ComputeClick(clkx, clky);
 
-						if (Winner != 0) {
-							main.c.removeAll();
-							main.c.add(main.title); // Title로 다시 돌아간다.
-							main.c.repaint();
-							main.c.revalidate();
-							main.setSize(650, 500);
-						}
 
 						for (int i = 0; i < maxXY; i++) {
 							for (int j = 0; j < maxXY; j++) {
@@ -498,6 +498,14 @@ public class Offline extends JPanel {
 						time.setRepeats(false);
 						time.start();
 
+					}
+					
+					if (Winner != 0) {
+						main.c.removeAll();
+						main.c.add(main.title); // Title로 다시 돌아간다.
+						main.c.repaint();
+						main.c.revalidate();
+						main.setSize(650, 500);
 					}
 
 				}
@@ -536,7 +544,7 @@ public class Offline extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
-			repaint(); // then repaint the GUI
+			repaint(); // GUI를 계속 그린다.
 		}
 	}
 
@@ -546,7 +554,6 @@ public class Offline extends JPanel {
 		g.drawImage(changedImg, 1, 1, this);
 		g.setFont(new Font("Arial", Font.ITALIC, 20));
 
-		blackcount = whitecount = 0;
 		g.setColor(Color.white);
 		for (int i = 0; i <= maxXY; i++) {
 
@@ -557,21 +564,13 @@ public class Offline extends JPanel {
 		for (int i = 0; i < maxXY; i++)
 			for (int j = 0; j < maxXY; j++) {
 				if (map[j][i] == 1) {
-					blackcount++;
-					g.drawImage(BlackO, i * maxSize, j * maxSize, this);
-				}
-			}
 
-		for (int i = 0; i < maxXY; i++)
-			for (int j = 0; j < maxXY; j++) {
-				if (map[j][i] == -1) {
-					whitecount++;
+					g.drawImage(BlackO, i * maxSize, j * maxSize, this);
+				} else if (map[j][i] == -1) {
+
 					g.drawImage(WhiteO, i * maxSize, j * maxSize, this);
 
 				}
-			}
-		for (int i = 0; i < maxXY; i++)
-			for (int j = 0; j < maxXY; j++) {
 				if (map[j][i] == 2) {
 					for (int k = 4; k >= 0; k--) {
 						g.drawImage(Cg[k], i * maxSize, j * maxSize, this);
@@ -579,7 +578,7 @@ public class Offline extends JPanel {
 
 					map[j][i] = -1;
 				} else if (map[j][i] == 4) {
-					for (int k = 0; k < 5; k++) {
+					for (int k = 0; k <= 4; k++) {
 						g.drawImage(Cg[k], i * maxSize, j * maxSize, this);
 
 					}
@@ -588,7 +587,7 @@ public class Offline extends JPanel {
 				}
 			}
 
-		if (turn == 1) {
+		if (turn == Main.BLACK) {
 
 			g.setColor(Color.white);
 			g.drawString("Black", 800, 100);
