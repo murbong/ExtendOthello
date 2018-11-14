@@ -24,7 +24,7 @@ import javax.swing.Timer;
 
 public class Offline extends JPanel {
 
-	int map[][] = { { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+	int map[][] = new int[][] { { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -44,22 +44,40 @@ public class Offline extends JPanel {
 
 	int Winner = 0;
 
-	Computer com = new Computer();//Compuer °´Ã¼ »ı¼º
-	
-	// ImageIcon°´Ã¼¸¦ »ı¼º
+	Computer com = new Computer();// Compuer ê°ì²´ ìƒì„±
 
-	Image WhiteO = new ImageIcon("./¸®¹ö½Ã/1.png").getImage().getScaledInstance(maxSize, maxSize, Image.SCALE_DEFAULT);
+	// ImageIconê°ì²´ë¥¼ ìƒì„±
+
+	Image WhiteO = new ImageIcon("./ë¦¬ë²„ì‹œ/1.png").getImage().getScaledInstance(maxSize, maxSize, Image.SCALE_DEFAULT);
 	Image Cg[] = new Image[5];
 
-	Image BlackO = new ImageIcon("./¸®¹ö½Ã/7.png").getImage().getScaledInstance(maxSize, maxSize, Image.SCALE_DEFAULT);
+	Image BlackO = new ImageIcon("./ë¦¬ë²„ì‹œ/7.png").getImage().getScaledInstance(maxSize, maxSize, Image.SCALE_DEFAULT);
 
 	Image changedImg = new ImageIcon("./Background.png").getImage().getScaledInstance(maxSize * maxXY + 1,
 			maxSize * maxXY + 1, Image.SCALE_DEFAULT);
 
-	
-	
-	
-	
+	public void Initializing() {
+
+		map = new int[][] { { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, -1, 1, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 1, -1, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 } };
+
+		maxSize = 45;
+		whitecheck = 0;
+		blackcheck = 0;
+		whitecount = 2;
+		blackcount = 2;
+		turn = Main.BLACK;
+		Winner = 0;
+	}
+
 	public void ChangeBackground() {
 		if (turn == 1)
 			this.setBackground(Color.black);
@@ -75,7 +93,7 @@ public class Offline extends JPanel {
 
 	public int CheckAlgorithm(int _x, int _y, int _turn, int mode) {
 
-		int myState = map[_y][_x];// GUI¿¡¼­´Â ¸ÊÀÌ ¹İ´ë·Î º¸ÀÌ±â ¶§¹®.
+		int myState = map[_y][_x];// GUIì—ì„œëŠ” ë§µì´ ë°˜ëŒ€ë¡œ ë³´ì´ê¸° ë•Œë¬¸.
 		int t = 0;
 		int is_putable = 0;
 		int count = 0;
@@ -83,21 +101,21 @@ public class Offline extends JPanel {
 			return is_putable;
 		}
 		int i, j;
-		// À­ ¹æÇâ ¼¼·Î °Ë»ç
+		// ìœ— ë°©í–¥ ì„¸ë¡œ ê²€ì‚¬
 		for (i = _y - 1; i >= 0; i--) {
-			if (((_turn * -1)) == map[i][_x]) { // I´Â ÇöÀç Seeking ÇÏ´Â À§Ä¡. ¸¸¾à SeekingÀÌ ÇöÀç ÅÏÀÇ µ¹ »ö±ò°ú ´Ù¸£¸é ÀÎÀÚ¸¦ 1·Î ¿Ã¸°´Ù.
+			if (((_turn * -1)) == map[i][_x]) { // IëŠ” í˜„ì¬ Seeking í•˜ëŠ” ìœ„ì¹˜. ë§Œì•½ Seekingì´ í˜„ì¬ í„´ì˜ ëŒ ìƒ‰ê¹”ê³¼ ë‹¤ë¥´ë©´ ì¸ìë¥¼ 1ë¡œ ì˜¬ë¦°ë‹¤.
 				t = 1;
-				continue;// ÅÏÀÇ µ¹ »ö±òÀÌ¶û °°À» ¶§±îÁö for¹®À» µ¹¸°´Ù.
-			} else if (_turn == map[i][_x]) {// ÇöÀç µ¹ »ö±ò°ú ¸¸³µÀ»°æ¿ì. T°¡ 1ÀÏ¶§¸¸ ±â´ÉÀ» ¼öÇàÇÑ´Ù.
+				continue;// í„´ì˜ ëŒ ìƒ‰ê¹”ì´ë‘ ê°™ì„ ë•Œê¹Œì§€ forë¬¸ì„ ëŒë¦°ë‹¤.
+			} else if (_turn == map[i][_x]) {// í˜„ì¬ ëŒ ìƒ‰ê¹”ê³¼ ë§Œë‚¬ì„ê²½ìš°. Tê°€ 1ì¼ë•Œë§Œ ê¸°ëŠ¥ì„ ìˆ˜í–‰í•œë‹¤.
 				if (t == 1) {
 					is_putable = 1;
-					// System.out.println("¼¼·ÎÀ§°Ë»ç" + _turn);
+					// System.out.println("ì„¸ë¡œìœ„ê²€ì‚¬" + _turn);
 					if (mode >= 1) {
 
 						for (j = i + 1; j < _y; j++) {
 							// map[j][_x] = _turn + 3;
 							if (mode == 1) {
-								SetMapComponent(j, _x, _turn + 3);// +3Àº ¾Ö´Ï¸ŞÀÌ¼ÇÀÇ ¼öÇàÀ» ÇÑ´Ù.
+								SetMapComponent(j, _x, _turn + 3);// +3ì€ ì• ë‹ˆë©”ì´ì…˜ì˜ ìˆ˜í–‰ì„ í•œë‹¤.
 							} else if (mode == 2) {
 								count++;
 							}
@@ -106,12 +124,12 @@ public class Offline extends JPanel {
 					}
 				}
 				break;
-			} else {// ¸¸¾à ºñ¾îÀÖÀ¸¸é ¹Ù·Î ³¡!
+			} else {// ë§Œì•½ ë¹„ì–´ìˆìœ¼ë©´ ë°”ë¡œ ë!
 				break;
 			}
 		}
 		t = 0;
-		// ¾Æ·§ ¹æÇâ ¼¼·Î °Ë»ç
+		// ì•„ë« ë°©í–¥ ì„¸ë¡œ ê²€ì‚¬
 		for (i = _y + 1; i < maxXY; i++) {
 			if (((_turn * -1)) == map[i][_x]) {
 				t = 1;
@@ -119,7 +137,7 @@ public class Offline extends JPanel {
 			} else if (_turn == map[i][_x]) {
 				if (t == 1) {
 					is_putable = 1;
-					// System.out.println("¼¼·Î¾Æ·¡°Ë»ç" + _turn);
+					// System.out.println("ì„¸ë¡œì•„ë˜ê²€ì‚¬" + _turn);
 
 					if (mode >= 1) {
 
@@ -140,7 +158,7 @@ public class Offline extends JPanel {
 			}
 		}
 		t = 0;
-		// ¿Ş ¹æÇâ °¡·Î °Ë»ç
+		// ì™¼ ë°©í–¥ ê°€ë¡œ ê²€ì‚¬
 		for (i = _x - 1; i >= 0; i--) {
 
 			if (((_turn * -1)) == map[_y][i]) {
@@ -149,7 +167,7 @@ public class Offline extends JPanel {
 			} else if (_turn == map[_y][i]) {
 				if (t == 1) {
 					is_putable = 1;
-					// System.out.println("¿Ş°¡·Î°Ë»ç" + _turn);
+					// System.out.println("ì™¼ê°€ë¡œê²€ì‚¬" + _turn);
 
 					if (mode >= 1) {
 
@@ -172,7 +190,7 @@ public class Offline extends JPanel {
 
 		}
 		t = 0;
-		// ¿À¸¥ ¹æÇâ °¡·Î °Ë»ç
+		// ì˜¤ë¥¸ ë°©í–¥ ê°€ë¡œ ê²€ì‚¬
 		for (i = _x + 1; i < maxXY; i++) {
 			if (((_turn * -1)) == map[_y][i]) {
 				t = 1;
@@ -180,7 +198,7 @@ public class Offline extends JPanel {
 			} else if (_turn == map[_y][i]) {
 				if (t == 1) {
 					is_putable = 1;
-					// System.out.println("¿À¸¥°¡·Î°Ë»ç" + _turn);
+					// System.out.println("ì˜¤ë¥¸ê°€ë¡œê²€ì‚¬" + _turn);
 
 					if (mode >= 1) {
 
@@ -205,7 +223,7 @@ public class Offline extends JPanel {
 		}
 
 		t = 0;
-		// ¿ŞÂÊ À§ ¹æÇâ ´ë°¢¼± °Ë»ç
+		// ì™¼ìª½ ìœ„ ë°©í–¥ ëŒ€ê°ì„  ê²€ì‚¬
 		for (i = 1; (_x - i) >= 0 && (_y - i) >= 0; i++) {
 			if (((_turn * -1)) == map[_y - i][_x - i]) {
 				t = 1;
@@ -213,7 +231,7 @@ public class Offline extends JPanel {
 			} else if (_turn == map[_y - i][_x - i]) {
 				if (t == 1) {
 					is_putable = 1;
-					// System.out.println("¿ŞÀ§´ë°¢°Ë»ç" + _turn);
+					// System.out.println("ì™¼ìœ„ëŒ€ê°ê²€ì‚¬" + _turn);
 
 					if (mode >= 1) {
 
@@ -235,7 +253,7 @@ public class Offline extends JPanel {
 			}
 		}
 		t = 0;
-		// ¿À¸¥ÂÊ ¾Æ·¡ ¹æÇâ ´ë°¢¼± °Ë»ç
+		// ì˜¤ë¥¸ìª½ ì•„ë˜ ë°©í–¥ ëŒ€ê°ì„  ê²€ì‚¬
 		for (i = 1; (_x + i) < maxXY && (_y + i) < maxXY; i++) {
 			if (((_turn * -1)) == map[_y + i][_x + i]) {
 				t = 1;
@@ -243,7 +261,7 @@ public class Offline extends JPanel {
 			} else if (_turn == map[_y + i][_x + i]) {
 				if (t == 1) {
 					is_putable = 1;
-					// System.out.println("¿À¸¥¾Æ·¡´ë°¢°Ë»ç" + _turn);
+					// System.out.println("ì˜¤ë¥¸ì•„ë˜ëŒ€ê°ê²€ì‚¬" + _turn);
 
 					if (mode >= 1) {
 
@@ -265,7 +283,7 @@ public class Offline extends JPanel {
 			}
 		}
 		t = 0;
-		// ¿ŞÂÊ ¾Æ·¡ ¹æÇâ ´ë°¢¼± °Ë»ç
+		// ì™¼ìª½ ì•„ë˜ ë°©í–¥ ëŒ€ê°ì„  ê²€ì‚¬
 		for (i = 1; (_x - i) >= 0 && (_y + i) < maxXY; i++) {
 			if (((_turn * -1)) == map[_y + i][_x - i]) {
 				t = 1;
@@ -273,7 +291,7 @@ public class Offline extends JPanel {
 			} else if (_turn == map[_y + i][_x - i]) {
 				if (t == 1) {
 					is_putable = 1;
-					// System.out.println("¿Ş¾Æ·¡´ë°¢°Ë»ç" + _turn);
+					// System.out.println("ì™¼ì•„ë˜ëŒ€ê°ê²€ì‚¬" + _turn);
 
 					if (mode >= 1) {
 
@@ -295,7 +313,7 @@ public class Offline extends JPanel {
 			}
 		}
 		t = 0;
-		// ¿À¸¥ÂÊ À§ ¹æÇâ ´ë°¢¼± °Ë»ç
+		// ì˜¤ë¥¸ìª½ ìœ„ ë°©í–¥ ëŒ€ê°ì„  ê²€ì‚¬
 		for (i = 1; (_x + i) < maxXY && (_y - i) >= 0; i++) {
 			if (((_turn * -1)) == map[_y - i][_x + i]) {
 				t = 1;
@@ -303,7 +321,7 @@ public class Offline extends JPanel {
 			} else if (_turn == map[_y - i][_x + i]) {
 				if (t == 1) {
 					is_putable = 1;
-					// System.out.println("¿À¸¥À§´ë°¢°Ë»ç" + _turn);
+					// System.out.println("ì˜¤ë¥¸ìœ„ëŒ€ê°ê²€ì‚¬" + _turn);
 
 					if (mode >= 1) {
 
@@ -336,14 +354,10 @@ public class Offline extends JPanel {
 
 		int i, j;
 
-		
-		
-
-
-		if ((CheckAlgorithm(x, y, turn, 0)) == 1 && map[y][x] == 0) { // ¾Ë°í¸®Áò¿¡ ÃæÁ·ÇÏ°í ºñ¾îÀÖ½À´Ï±î?
+		if ((CheckAlgorithm(x, y, turn, 0)) == 1 && map[y][x] == 0) { // ì•Œê³ ë¦¬ì¦˜ì— ì¶©ì¡±í•˜ê³  ë¹„ì–´ìˆìŠµë‹ˆê¹Œ?
 			CheckAlgorithm(x, y, turn, 1);
 			SetMapComponent(y, x, turn);
-			
+
 			blackcheck = whitecheck = 0;
 			for (i = 0; i < maxXY; i++) {
 				for (j = 0; j < maxXY; j++) {
@@ -352,7 +366,6 @@ public class Offline extends JPanel {
 
 				}
 			}
-
 
 			if ((blackcheck == 0 && whitecheck == 0) || (blackcount + whitecount) >= maxXY * maxXY) {
 				int winner = 0;
@@ -367,25 +380,24 @@ public class Offline extends JPanel {
 				win(winner);
 				Winner = winner;
 
-			}
+			} else {
 
-			// map[y][x] = turn;// µ¹ Ã¤¿î´Ù.
-
-			turn *= -1;
-			if (whitecheck == 0 && turn == Main.WHITE) {
 				turn *= -1;
-				JOptionPane.showMessageDialog(null,"¹é»öÀÌ ³õÀ» °÷ÀÌ ¾ø³×¿ä. ÅÏÀ» ¹Ù²ß´Ï´Ù.","¾È³ç", JOptionPane.YES_OPTION);
-				ChangeBackground();
-			}
-			if (blackcheck == 0 && turn == Main.BLACK) {
-				turn *= -1;
-				JOptionPane.showMessageDialog(null,"Èæ»öÀÌ ³õÀ» °÷ÀÌ ¾ø³×¿ä. ÅÏÀ» ¹Ù²ß´Ï´Ù.","¾È³ç", JOptionPane.YES_OPTION);
-				ChangeBackground();
+				if (whitecheck == 0 && turn == Main.WHITE) {
+					turn *= -1;
+					JOptionPane.showMessageDialog(null, "ë°±ìƒ‰ì´ ë†“ì„ ê³³ì´ ì—†ë„¤ìš”. í„´ì„ ë°”ê¿‰ë‹ˆë‹¤.", "Turn", JOptionPane.YES_OPTION);
+					ChangeBackground();
+				}
+				if (blackcheck == 0 && turn == Main.BLACK) {
+					turn *= -1;
+					JOptionPane.showMessageDialog(null, "í‘ìƒ‰ì´ ë†“ì„ ê³³ì´ ì—†ë„¤ìš”. í„´ì„ ë°”ê¿‰ë‹ˆë‹¤.", "Turn", JOptionPane.YES_OPTION);
+					ChangeBackground();
+				}
 			}
 
 			try {
 
-				AudioInputStream ais2 = AudioSystem.getAudioInputStream(new File("./¸¶¿ì½ºµş±ï.wav"));
+				AudioInputStream ais2 = AudioSystem.getAudioInputStream(new File("./ë§ˆìš°ìŠ¤ë”¸ê¹.wav"));
 				Clip clip2 = AudioSystem.getClip();
 				clip2.open(ais2);
 				clip2.start();
@@ -406,34 +418,34 @@ public class Offline extends JPanel {
 
 	JDialog WinDialog = new JDialog();
 
-	void win(int winner) {
+	public void win(int winner) {
 
 		if (winner == Main.WHITE) {
-			WinDialog.setTitle("Èòµ¹ÀÇ ½Â¸®!");
+			WinDialog.setTitle("í°ëŒì˜ ìŠ¹ë¦¬!");
 			WinDialog.add(new JLabel(new ImageIcon(
-					new ImageIcon("./Èòµ¹½Â¸®.png").getImage().getScaledInstance(400, 400, Image.SCALE_SMOOTH))));
+					new ImageIcon("./í°ëŒìŠ¹ë¦¬.png").getImage().getScaledInstance(1024, 512, Image.SCALE_SMOOTH))));
 			WinDialog.setVisible(true);
-			WinDialog.setSize(400, 400);
+			WinDialog.setSize(1024, 512);
 			WinDialog.setLocationRelativeTo(null);
 
 		} else if (winner == Main.BLACK) {
-			WinDialog.setTitle("Èæµ¹ÀÇ ½Â¸®!");
+			WinDialog.setTitle("í‘ëŒì˜ ìŠ¹ë¦¬!");
 			WinDialog.add(new JLabel(new ImageIcon(
-					new ImageIcon("./Èæµ¹½Â¸®.png").getImage().getScaledInstance(256, 512, Image.SCALE_SMOOTH))));
+					new ImageIcon("./í‘ëŒìŠ¹ë¦¬.png").getImage().getScaledInstance(1024, 512, Image.SCALE_SMOOTH))));
 			WinDialog.setVisible(true);
-			WinDialog.setSize(400, 400);
+			WinDialog.setSize(1024, 512);
 			WinDialog.setLocationRelativeTo(null);
 		} else if (winner == 3) {
-			WinDialog.setTitle("¹«½ÂºÎ!");
+			WinDialog.setTitle("ë¬´ìŠ¹ë¶€!");
 			WinDialog.add(new JLabel(new ImageIcon(
-					new ImageIcon("./¹«½ÂºÎ.png").getImage().getScaledInstance(256, 512, Image.SCALE_SMOOTH))));
+					new ImageIcon("./ë¬´ìŠ¹ë¶€.png").getImage().getScaledInstance(1024, 512, Image.SCALE_SMOOTH))));
 			WinDialog.setVisible(true);
-			WinDialog.setSize(400, 400);
+			WinDialog.setSize(1024, 512);
 			WinDialog.setLocationRelativeTo(null);
 		} else {
-			WinDialog.setTitle("¿À·ù³µ¾î");
+			WinDialog.setTitle("ì˜¤ë¥˜ë‚¬ì–´");
 		}
-
+		Initializing();
 	}
 
 	Offline(Main main) {
@@ -445,7 +457,7 @@ public class Offline extends JPanel {
 		this.setLayout(null);
 		int i;
 		for (i = 0; i < 5; i++) {
-			Cg[i] = new ImageIcon("./¸®¹ö½Ã/" + (i + 2) + ".png").getImage().getScaledInstance(maxSize, maxSize,
+			Cg[i] = new ImageIcon("./ë¦¬ë²„ì‹œ/" + (i + 2) + ".png").getImage().getScaledInstance(maxSize, maxSize,
 					Image.SCALE_DEFAULT);
 		}
 		addMouseListener(new MouseListener() {
@@ -453,39 +465,39 @@ public class Offline extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 
-				if(turn == Main.BLACK) {
-				if (arg0.getX() <= maxSize * maxXY && arg0.getY() <= maxSize * maxXY) {// Clamp
-					int clkx = arg0.getX() / maxSize;
-					int clky = arg0.getY() / maxSize;
-					ComputeClick(clkx, clky);
+				if (turn == Main.BLACK) {
+					if (arg0.getX() <= maxSize * maxXY && arg0.getY() <= maxSize * maxXY) {// Clamp
+						int clkx = arg0.getX() / maxSize;
+						int clky = arg0.getY() / maxSize;
+						ComputeClick(clkx, clky);
 
-					for (int i = 0; i < maxXY; i++) {
-						for (int j = 0; j < maxXY; j++) {
-							com.SetWeight(i, j, CheckAlgorithm(i, j, turn, 2));
+						if (Winner != 0) {
+							main.c.removeAll();
+							main.c.add(main.title); // Titleë¡œ ë‹¤ì‹œ ëŒì•„ê°„ë‹¤.
+							main.c.repaint();
+							main.c.revalidate();
+							main.setSize(650, 500);
 						}
+
+						for (int i = 0; i < maxXY; i++) {
+							for (int j = 0; j < maxXY; j++) {
+								com.SetWeight(i, j, CheckAlgorithm(i, j, turn, 2));
+							}
+						}
+						com.ThinkBestPosition();
 					}
-					com.ThinkBestPosition();
-				}
 					if (turn == Main.WHITE) {
 
 						Timer time = new Timer(1000, new ActionListener() {
 
-						    @Override
-						    public void actionPerformed(ActionEvent arg0) {            
+							@Override
+							public void actionPerformed(ActionEvent arg0) {
 								ComputeClick(com.X, com.Y);
-						    }
+							}
 						});
 						time.setRepeats(false);
 						time.start();
 
-					}
-
-					if (Winner != 0) {
-						main.c.removeAll();
-						main.c.add(main.title); // Title·Î ´Ù½Ã µ¹¾Æ°£´Ù.
-						main.c.repaint();
-						main.c.revalidate();
-						main.setSize(650, 500);
 					}
 
 				}
@@ -523,7 +535,7 @@ public class Offline extends JPanel {
 	private class TimerListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// simply iterate through list and move all squares
+
 			repaint(); // then repaint the GUI
 		}
 	}
