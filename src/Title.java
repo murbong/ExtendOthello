@@ -11,11 +11,11 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 public class Title extends Container {
-	   JLabel j = new JLabel(new ImageIcon("./ÇÑ¹ö½Ã.png"));
-	  // JButton b1 = new JButton(new ImageIcon("./¿Â¶óÀÎ.png"));
-	   JButton b2 = new JButton(new ImageIcon("./¿ÀÇÁ¶óÀÎ.png"));
-	   JButton b3 = new JButton(new ImageIcon("./Å©·¹µ÷.png"));
-	   JButton b4 = new JButton(new ImageIcon("./³ª°¡±â.png"));
+	   JLabel j = new JLabel(new ImageIcon("./í•œë²„ì‹œ.png"));
+	  // JButton b1 = new JButton(new ImageIcon("./ì˜¨ë¼ì¸.png"));
+	   JButton b2 = new JButton(new ImageIcon("./ì˜¤í”„ë¼ì¸.png"));
+	   JButton b3 = new JButton(new ImageIcon("./í¬ë ˆë”§.png"));
+	   JButton b4 = new JButton(new ImageIcon("./ë‚˜ê°€ê¸°.png"));
 
 
 	   
@@ -42,7 +42,7 @@ public class Title extends Container {
 	      b2.addActionListener(new ActionListener() {
 
 	         public void actionPerformed(ActionEvent arg0) {
-	            JOptionPane.showMessageDialog(null, "ÇÑ¹ö½Ã ¿ÀÇÁ¶óÀÎÀ» ½ÃÀÛÇÕ´Ï´Ù.", "½ÃÀÛ", JOptionPane.PLAIN_MESSAGE);
+	            JOptionPane.showMessageDialog(null, "í•œë²„ì‹œ ì˜¤í”„ë¼ì¸ì„ ì‹œì‘í•©ë‹ˆë‹¤.", "ì‹œì‘", JOptionPane.PLAIN_MESSAGE);
 	            ani.c.removeAll();
 	            ani.c.repaint();
 	            ani.c.revalidate();
@@ -58,7 +58,7 @@ public class Title extends Container {
 
 	         public void actionPerformed(ActionEvent arg0) {
 
-	            JOptionPane.showMessageDialog(null, "ÁØºñÁßÀÓ", "ÁØºñÁß", JOptionPane.QUESTION_MESSAGE);
+	            JOptionPane.showMessageDialog(null, "ì¤€ë¹„ì¤‘ì„", "ì¤€ë¹„ì¤‘", JOptionPane.QUESTION_MESSAGE);
 	         }
 
 	      });*/
@@ -67,8 +67,8 @@ public class Title extends Container {
 
 	         public void actionPerformed(ActionEvent arg0) {
 
-	            JOptionPane.showMessageDialog(null, "GUI : ¸ÓºÀÀÌ\n¼­¹ö ¹× ¾Ë°í¸®Áò : À¯ÇÑ±æ",
-	                  "Á¦ÀÛÀÚµé", JOptionPane.QUESTION_MESSAGE);
+	            JOptionPane.showMessageDialog(null, "GUI : ë¨¸ë´‰ì´\nì„œë²„ ë° ì•Œê³ ë¦¬ì¦˜ : í•œê¸¸ë°°",
+	                  "ì œì‘ìë“¤", JOptionPane.QUESTION_MESSAGE);
 	         }
 
 	      });
