@@ -22,15 +22,15 @@
 
 ------
 
-![othello](C:\Users\wc100\Pictures\othello.PNG)
+![othello](image/othello.PNG)
 
 깔끔한 GUI를 자랑한다.
 
-![init](C:\Users\wc100\Pictures\init.PNG)
+![init](image/init.PNG)
 
 Play Offline을 누르면 16X16의 게임 화면이 뜬다. 
 
-![default](C:\Users\wc100\Pictures\default.PNG)
+![default](image/default.PNG)
 
 몇번 수를 둔 상황. 흑돌은 Player, 흰돌은 Computer이다. Computer 알고리즘은 따로 후술하겠다.
 
@@ -50,33 +50,33 @@ Play Offline을 누르면 16X16의 게임 화면이 뜬다.
 
 ## 소스 코드 / 알고리즘
 
-![map](C:\Users\wc100\Pictures\map.png)
+![map](image/map.png)
 
 16x16의 맵을 흑돌 1, 백돌 -1로 표현했다.
 
-![알고리줌](C:\Users\wc100\Pictures\알고리줌.PNG)
+![알고리줌](image/알고리줌.PNG)
 
 PUT에 흑돌을 넣는다. 만약 주변에 다른 색 돌이 있다면 T=1로 두고, T가 1일때 같은 색 돌을 만나면 사이의 돌 색깔을 바꾼다. 만약 끝까지 다른색 돌이라면 아무 기능도 하지 않는다.
 
-![알고리즘ㄴ](C:\Users\wc100\Pictures\알고리즘ㄴ.PNG)
+![알고리즘ㄴ](image/알고리즘ㄴ.PNG)
 
 Seeking 알고리즘. 이 알고리즘은 윗방향으로 검사한다. 이러한 알고리즘이 8개가 있다. (전후좌우, 대각선)
 
 알고리즘의 모드는 3가지가 있는데, 기초적인 is_putable을 return하는 모드, 사이의 돌 색깔을 바꾸는 SetMapComponent 모드, 현재 자리에서 몇개의 돌을 먹을수 있는지 확인하는 Count return 모드가 있다.
 
-![알](C:\Users\wc100\Pictures\알.PNG)
+![알](image/알.PNG)
 
 다음은 ComputeClick(int x,int y) 메소드 기능중 하나로, 현재 위치에 착석가능하고 비어있다면, Seeking 알고리즘을 실행한다. 그리고 맵 전체를 분석해 현재 돌의 갯수와 착석 할 수 있는 위치가 몇개인지 살펴본다.
 
-![고](C:\Users\wc100\Pictures\고.PNG)
+![고](image/고.PNG)
 
 만약 둘다 놓을 곳이 없거나, 흑돌, 백돌 총합이 maxXY의 제곱을 넘거나 같다면, 승자를 정한다.
 
-![리](C:\Users\wc100\Pictures\리.PNG)
+![리](image/리.PNG)
 
 아니면, 턴에 -1를 곱해서(흑은 1, 백은 -1) 턴을 바꾼다. 만약 현재 턴이 백돌인데 백돌이 놓을 곳이 없다면 다시 턴을 바꾼다.
 
-![즘](C:\Users\wc100\Pictures\즘.PNG)
+![즘](image/즘.PNG)
 
 마우스 리스너를 이용하여 클릭한 좌표를 맵핑한다. 여기서 maxsize는 한 칸의 크기이고, 이것으로 마우스 좌표를 나눈 값이 Map의 위치를 의미한다. 이 좌표로 ComputeClick(x,y) 메소드를 실행한다.
 
@@ -86,7 +86,7 @@ Seeking 알고리즘. 이 알고리즘은 윗방향으로 검사한다. 이러�
 
 Timer를 사용하여 사용자가 클릭 한 뒤 1초 뒤에 상대 AI가 가장 높은 가중치를 가진 좌표로 ComputeClick(x,y)   메소드를 실행한다.
 
-![gui](C:\Users\wc100\Pictures\gui.PNG)
+![gui](image/gui.PNG)
 
 다음은 GUI 부분 소스코드이다. **JPanel**의 **paintComponent**를 오버라이딩하여 격자무늬와 돌을 그린다.
 
@@ -96,13 +96,13 @@ turn이 흑돌이면 배경도 흑색, 백돌이면 백색이 된다.
 
 그리고 애니메이션을 계속해서 동작시키려면 GUI를 계속 새로고쳐야하는데, 이는 **Timer**를 사용하여 해결했다.
 
-![타임](C:\Users\wc100\Pictures\타임.PNG)
+![타임](image/타임.PNG)
 
-![리페인트](C:\Users\wc100\Pictures\리페인트.PNG)
+![리페인트](image/리페인트.PNG)
 
 How to make AI?
 
-![전략](C:\Users\wc100\Pictures\전략.PNG)
+![전략](image/전략.PNG)
 
 8x8 오델로의 전략이다. 만약에 X를 먹으면 견제를 받지 않고 돌을 뒤집을 수 있어 매우 좋은 자리이다.
 
@@ -114,11 +114,11 @@ How to make AI?
 
 다음은 클래스 Computer의 구현 방법이다.
 
-![가중치](C:\Users\wc100\Pictures\가중치.PNG)
+![가중치](image/가중치.PNG)
 
 이렇게 프로그래밍 하면...
 
-![악랄함](C:\Users\wc100\Pictures\악랄함.PNG)
+![악랄함](image/악랄함.PNG)
 
 > 흰 돌은 무조건 모서리 우선으로 먹게 된다. 얼마나 악랄한가? 생각없이 두면 질 정도다.
 
