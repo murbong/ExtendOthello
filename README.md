@@ -34,11 +34,11 @@ Play Offline을 누르면 16X16의 게임 화면이 뜬다.
 
 몇번 수를 둔 상황. 흑돌은 Player, 흰돌은 Computer이다. Computer 알고리즘은 따로 후술하겠다.
 
-![흑돌승리](D:\eclipse-workspace\Othello\흑돌승리.png)
+![흑돌승리](image/흑돌승리.png)
 
-![흰돌승리](D:\eclipse-workspace\Othello\흰돌승리.png)
+![흰돌승리](image/흰돌승리.png)
 
-![무승부](D:\eclipse-workspace\Othello\무승부.png)
+![무승부](image/무승부.png)
 
 > 만약 게임이 끝나면, 텍스트이미지로 되어있는 WinDialog가 뜨면서 메인 화면으로 돌아가게 된다.
 
